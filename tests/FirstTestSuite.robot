@@ -6,15 +6,19 @@ Library  SeleniumLibrary
 *** Variables ***
 ${Browser}  Chrome
 ${URL}   https://opensource-demo.orangehrmlive.com/
-
+@{Credentials}   Admin   admin123
+&{LoginData}    username=Admin  password=admin123
 
 *** Test Cases ***
+
 TC_001_LoginTest
     Open Browser  ${URL}  ${Browser}
-    Input Text      id:txtUsername    Admin
-    Input Text      id:txtPassword    admin123
-    Click Element    name:Submit
+    Do Login
     Close Browser
 
 
 *** Keywords ***
+Do Login
+    Input Text      id:txtUsername    @{Credentials}[0]
+    Input Text      id:txtPassword    &{LoginData}[password]
+    Click Element    name:Submit
